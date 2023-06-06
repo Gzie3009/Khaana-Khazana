@@ -236,7 +236,6 @@ const RecipeDetails = () => {
     //   console.log(movieData)
     // }
     setRecipe(data2);
-    console.log(recipe);
     setLoading(0);
   };
   useEffect(() => {
@@ -247,9 +246,7 @@ const RecipeDetails = () => {
     if (recipe) {
      setIngredientNames( recipe.extendedIngredients.map((ingredient) => ingredient.name))
      const instructionsList=recipe.instructions.split(".").filter(line => line.trim().length > 0)
-    setInsctructions(instructionsList)
-    console.log(recipe.instructions)
-    console.log(instructions)
+     setInsctructions(instructionsList)
     }
   }, [recipe]);
   
@@ -369,7 +366,7 @@ const RecipeDetails = () => {
                 <div className=" my-10">
                   <p className="text-3xl font-bold">How To Make :</p>
                         {instructions.map((val,index)=>{
-                            return(<h1 className="text-xl py-2"><span className="font-bold mr-2">{index+1}.</span><span>{val} .</span></h1> )
+                            return(<h1 key={index} className="text-xl py-2"><span className="font-bold mr-2">{index+1}.</span><span>{val} .</span></h1> )
                         })}
                 </div>
             </div>

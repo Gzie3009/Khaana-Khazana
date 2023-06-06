@@ -1,12 +1,27 @@
-//Login form Component. Since No backend is available so, The temporary login mechanism acts such that the
-//email and password is stored in the frontend inside localstorage.
+import { getAuth,signInWithEmailAndPassword } from "firebase/auth";
 
-//to authenticate the user whenever he visits the web app, we will check the localstorage if Email and Password is present then
-// we will set the user as logged in. I know there are security concers but since we dont have a backend , this method is being used temporarily.
-
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 const Login = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const handleLoginSubmit = () => {
+    const auth =getAuth()
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        // Signed in
+        const user = userCredential.user;
+        alert("logged In ",user)
+        // ...
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        alert (errorMessage,errorMessage)
+        // ..
+      });
+      
+  };
   return (
     <>
       <div className="grid place-items-center w-screen p-10">
@@ -19,6 +34,8 @@ const Login = () => {
               Email
             </label>
             <input
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               placeholder="johndoe@mail.com"
               type="email"
               id="email"
@@ -31,6 +48,8 @@ const Login = () => {
               Password
             </label>
             <input
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               placeholder="********"
               type="password"
               id="passowrd"
@@ -38,7 +57,7 @@ const Login = () => {
               className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
             />
           </div>
-          <button className="text-white bg-rose-500 border-0 py-2 px-8 focus:outline-none hover:bg-rose-600 rounded text-lg">
+          <button onClick={()=>handleLoginSubmit()} className="text-white bg-rose-500 border-0 py-2 px-8 focus:outline-none hover:bg-rose-600 rounded text-lg">
             Login
           </button>
           <p className="text-md text-gray-500 mt-3">

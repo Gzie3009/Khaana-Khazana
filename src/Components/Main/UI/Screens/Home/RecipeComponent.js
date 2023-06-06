@@ -3,12 +3,9 @@ import { Link } from "react-router-dom";
 import veg from "../../../../../Assets/veg:nonveg/veg.png";
 import nveg from "../../../../../Assets/veg:nonveg/nveg.png";
 const RecipeComponent = (props) => {
-  console.log(props.data);
   let { id, title, aggregateLikes, dishTypes, vegetarian, readyInMinutes } =
     props.data;
-  const image = props.data.image;
-  // ? props.data.image.medium
-  // : "https://demofree.sirv.com/nope-not-here.jpg";
+  const image = props.data.image? props.data.image: "https://demofree.sirv.com/nope-not-here.jpg";
   return (
     <>
       <div className="xl:w-[25%] md:w-1/2 p-4">
