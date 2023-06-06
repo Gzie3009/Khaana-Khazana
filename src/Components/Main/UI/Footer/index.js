@@ -8,7 +8,7 @@ const Footer = () => {
           <div className="flex md:flex-nowrap flex-wrap justify-center items-end md:justify-start">
             <div className="relative sm:w-64 w-40 sm:mr-4 mr-2">
             <p className="text-gray-500 text-xl pb-2 md:mt-0 mt-2 sm:text-left text-center">
-            Sign Up For Our Movie Newsletter
+            Sign Up For Our Recipe Newsletter
             </p>
               <input
                 type="text"
@@ -84,10 +84,10 @@ const Footer = () => {
       <div className="bg-gray-100">
         <div className="container mx-auto py-4 px-5 flex flex-wrap flex-col sm:flex-row">
           <p className="text-gray-500 text-sm text-center sm:text-left">
-            © 2023 MovieDekho Pvt. Ltd
+            © 2023 Khaana Khazana Pvt. Ltd
           </p>
           <span className="sm:ml-auto sm:mt-0 mt-2 sm:w-auto w-full sm:text-left text-center text-gray-500 text-sm">
-            Get the best movie details
+            Get the best recipe details
           </span>
         </div>
       </div>

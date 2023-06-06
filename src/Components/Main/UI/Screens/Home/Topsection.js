@@ -7,7 +7,7 @@ const Topsection = () => {
         <div className="backdrop-blur-md">
           <div className="text-4xl font-bold pt-14 px-10 text-center">Welcome to </div>
           <div>
-            <p className="w-[80vw] md:w-full text-4xl md:text-7xl font-black pb-14 px-10 text-center">Movie Dekho</p>{" "}
+            <p className="w-[80vw] md:w-full text-4xl md:text-7xl font-black pb-14 px-10 text-center">Khaana Khazana</p>{" "}
           </div>
           </div>
         </div>

@@ -4,14 +4,18 @@ import Footer from "../UI/Footer";
 import Navbar from "../UI/Navbar";
 import Error from "../UI/Screens/Error";
 import Home from "../UI/Screens/Home";
-import MovieDetails from "../UI/Screens/MovieDetails";
+import RecipeDetails from "../UI/Screens/RecipeDetails";
+import Login from "../UI/Screens/Login";
+import Signup from "../UI/Screens/Signup";
 const Routings = () => {
   return (
     <>
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/movie/:id" element={<MovieDetails />} />
+        <Route path="/recipe/:id" element={<RecipeDetails/>} />
+        <Route path="/login" element={<Login/>}/>
+        <Route path="/signup" element={<Signup/>}/>
         <Route path="*" element={<Error />} />
       </Routes>
       <Footer />

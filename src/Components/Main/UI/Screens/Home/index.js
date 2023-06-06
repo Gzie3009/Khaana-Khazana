@@ -1,11 +1,11 @@
 import React from "react";
-import MovieListSection from "./MovieListSection";
+import RecipeSection from "./RecipeListSection";
 import Topsection from "./Topsection";
 const Home = () => {
   return (
     <>
       <Topsection />
-      <MovieListSection />
+      <RecipeSection />
     </>
   );
 };
