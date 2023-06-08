@@ -1,44 +1,26 @@
 import React,{useEffect} from "react";
-import { Link } from "react-router-dom";
+import { Link,useNavigate} from "react-router-dom";
 import { getAuth, signInWithCustomToken } from "firebase/auth";
+import { useDispatch,useSelector } from "react-redux";
+import { loginUser } from "../../../Core/store/slice/userSlice";
 const Navbar = () => {
-  function getCookie(name) {
-    const cookieString = document.cookie;
-    const cookies = cookieString.split("; ");
-    for (let i = 0; i < cookies.length; i++) {
-      const cookie = cookies[i].split("=");
-      if (cookie[0] === name) {
-        return cookie[1];
-      }
-    }
-    return null;
-  }
+  const dispatch =useDispatch()
+
   const authorizeUser=()=>{
-    const auth=getAuth();
-    const authToken = getCookie("authToken");
-    if (authToken) {
-      console.log(authToken)
-      // Restore the user's authentication state using the token
-      signInWithCustomToken(auth, authToken)
-        .then((userCredential) => {
-          // User is successfully authenticated
-          const user = userCredential.user;
-          alert("loggedIn")
-          console.log("User is logged in:", user);
-        })
-        .catch((error) => {
-          // An error occurred while restoring the authentication state
-          alert("error")
-          console.error("Error restoring authentication state:", error);
-        });
-    }
-    else{
-      alert("not found")
-    }
+   const loggedIn=localStorage.getItem("LOGIN")
+   if(loggedIn){
+     dispatch(loginUser())
+   }
+  }
+  const user=useSelector((state)=>{
+    return state.users.auth
+  })
+  const handleLogout=()=>{
+    localStorage.clear();
   }
   useEffect(() => {
-    authorizeUser();
-  }, []);
+    authorizeUser()
+    }, []);
 
   return (
     <>
@@ -81,7 +63,23 @@ const Navbar = () => {
               Chineese Cuisine
             </Link>
           </nav>
-          <Link
+          {user?<Link
+          onClick={()=> handleLogout()}
+            className="inline-flex items-center bg-rose-400 border-0 py-1 px-3 focus:outline-none hover:bg-rose-600 rounded text-white mt-4 md:mt-0"
+          >
+            Logout
+            <svg
+              fill="none"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              className="w-4 h-4 ml-1"
+              viewBox="0 0 24 24"
+            >
+              <path d="M5 12h14M12 5l7 7-7 7"></path>
+            </svg>
+          </Link>:<Link
             to="/login"
             className="inline-flex items-center bg-rose-400 border-0 py-1 px-3 focus:outline-none hover:bg-rose-600 rounded text-white mt-4 md:mt-0"
           >
@@ -97,7 +95,7 @@ const Navbar = () => {
             >
               <path d="M5 12h14M12 5l7 7-7 7"></path>
             </svg>
-          </Link>
+          </Link>}
         </div>
       </header>
     </>

@@ -11,6 +11,7 @@ const Login = () => {
       .then((userCredential) => {
         // Signed in
         const user = userCredential.user;
+        localStorage.setItem("LOGIN",1);
         alert("logged In ",user)
         // ...
       })
