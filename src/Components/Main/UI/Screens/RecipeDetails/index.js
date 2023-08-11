@@ -5,10 +5,13 @@ const RecipeDetails = () => {
   const { id } = useParams();
   const [recipe, setRecipe] = useState();
   const [loading, setLoading] = useState(1);
-  const [ingredientNames,setIngredientNames]=useState([])
-  const [image,setImage]=useState()
+  const [ingredientNames, setIngredientNames] = useState([]);
+  const [image, setImage] = useState();
+  const [addClick, setAddClick] = useState();
   const fetchRecipeDetails = async () => {
-    const response = await fetch(API_BASE_URL+""+id+"/information?apiKey="+API_KEY);
+    const response = await fetch(
+      API_BASE_URL + "" + id + "/information?apiKey=" + API_KEY
+    );
     const recipeData = await response.json();
     setRecipe(recipeData);
     setLoading(0);
@@ -19,19 +22,18 @@ const RecipeDetails = () => {
   }, []);
   useEffect(() => {
     if (recipe) {
-     setIngredientNames( recipe.extendedIngredients.map((ingredient) => ingredient.name))
-    recipe.image? setImage(recipe.image):setImage("https://demofree.sirv.com/nope-not-here.jpg");
+      setIngredientNames(
+        recipe.extendedIngredients.map((ingredient) => ingredient.name)
+      );
+      recipe.image
+        ? setImage(recipe.image)
+        : setImage("https://demofree.sirv.com/nope-not-here.jpg");
     }
   }, [recipe]);
-  
-
-
 
   // const movieImage = movie.image
   //   ? movie.image["medium"]
   //   : "https://demofree.sirv.com/nope-not-here.jpg";
-
-
 
   return (
     <>
@@ -82,7 +84,9 @@ const RecipeDetails = () => {
                 <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">
                   {recipe.title}
                 </h1>
-                <h2 className="text-sm title-font text-purple-500 font-bold tracking-widest flex"> Cuisines : 
+                <h2 className="text-sm title-font text-purple-500 font-bold tracking-widest flex">
+                  {" "}
+                  Cuisines :
                   {recipe.cuisines.map((type, index) => {
                     return (
                       <p key={index} className="pl-1 pr-2 uppercase">
@@ -91,7 +95,7 @@ const RecipeDetails = () => {
                     );
                   })}
                 </h2>
-                <div className="flex mb-4">
+                <div className="flex mb-4 relative">
                   <span className="flex items-center">
                     <span className="text-yellow-600 ml-3">
                       &#9829;
@@ -119,28 +123,71 @@ const RecipeDetails = () => {
                           d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"
                         />
                       </svg>
-                      <p className="pl-2">Ready In : {recipe.readyInMinutes} Minutes</p>
+                      <p className="pl-2">
+                        Ready In : {recipe.readyInMinutes} Minutes
+                      </p>
                     </p>
                   </span>
+                  <div className="bg-red-200 h-16 w-16 absolute top-10 right-0 rounded-full grid place-items-center">
+                    {addClick ? (
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        fill="red"
+                        class="w-10 h-10"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          d="M6.32 2.577a49.255 49.255 0 0111.36 0c1.497.174 2.57 1.46 2.57 2.93V21a.75.75 0 01-1.085.67L12 18.089l-7.165 3.583A.75.75 0 013.75 21V5.507c0-1.47 1.073-2.756 2.57-2.93z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
+                    ) : (
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke-width="1.5"
+                        stroke="red"
+                        class="w-10 h-10"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0111.186 0z"
+                        />
+                      </svg>
+                    )}
+                  </div>
                 </div>
-                <div className="text-3xl pb-5"> Description : </div>
+                <div className="text-3xl pb-5 "> Description : </div>
                 <div
                   className="text-xl"
                   dangerouslySetInnerHTML={{ __html: recipe.summary }}
                 ></div>
               </div>
-              {ingredientNames?<div className=" my-10">
+              {ingredientNames ? (
+                <div className=" my-10">
                   <p className="text-3xl font-bold">Key Ingredients :</p>
-                        {ingredientNames && ingredientNames.map((val,index)=>
-                        {
-                          return (<li className="text-xl" key={index}>{val}</li>)
-                        })}
-                </div>:null}
-                <br></br>
-                {recipe.instructions?<div className=" my-10">
+                  {ingredientNames &&
+                    ingredientNames.map((val, index) => {
+                      return (
+                        <li className="text-xl" key={index}>
+                          {val}
+                        </li>
+                      );
+                    })}
+                </div>
+              ) : null}
+              <br></br>
+              {recipe.instructions ? (
+                <div className=" my-10">
                   <p className="text-3xl font-bold">How To Make :</p>
-                        <div dangerouslySetInnerHTML={{__html: recipe.instructions}}></div>
-                </div>:null}
+                  <div
+                    dangerouslySetInnerHTML={{ __html: recipe.instructions }}
+                  ></div>
+                </div>
+              ) : null}
             </div>
           </div>
         </section>

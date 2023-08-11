@@ -8,6 +8,7 @@ import RecipeDetails from "../UI/Screens/RecipeDetails";
 import Login from "../UI/Screens/Login";
 import Signup from "../UI/Screens/Signup";
 import SearchResults from "../UI/Screens/Search";
+import MyRecipes from "../UI/Screens/MyRecipes";
 const Routings = () => {
   return (
     <>
@@ -18,6 +19,7 @@ const Routings = () => {
         <Route path="/login" element={<Login/>}/>
         <Route path="/signup" element={<Signup/>}/>
         <Route path="/searchrecipes/:dish" element={<SearchResults/>}/> 
+        <Route path="/myrecipes" element={<MyRecipes/>} />
         <Route path="*" element={<Error />} />
       </Routes>
       <Footer />
